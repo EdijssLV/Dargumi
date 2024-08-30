@@ -7,12 +7,15 @@
     <link rel="icon" type="image/x-icon" href="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZTBnM2w1OTFtMXZ2eXRycHg1a2Z5cmE1cXh2YnpjMnA4aHhmNGQ4eCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/h4BlS07oNxagGaKPG9/giphy.gif">
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="script.js" defer></script>
 </head>
 <body background="http://st.depositphotos.com/1987851/1904/i/450/depositphotos_19041043-Old-wallpaper-seamless-texture.jpg">
     <h1>Kabinets</h1>
 
-    <button class="top-right-button"><span class="material-icons md-48">tune</span></button>
-    
+    <button class="top-right-button" onclick="toggleDiv()"><span class="material-icons md-48">tune</span></button>
+    <div id="myDiv" class="hidden-div">
+        <h2>Filtrs</h2>
+    </div>
     <div class="table-container">
         <table>
             <thead>
