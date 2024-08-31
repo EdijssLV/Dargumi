@@ -59,7 +59,7 @@
 
         const SelectAllDataOnce = () => {
             const dbref = ref(db);
-            get(child(dbref, "1/data")).then((snapshot) =>{
+            get(child(dbref, "data")).then((snapshot) =>{
                 employeelist = [];
                 snapshot.forEach(childSnapshot =>{
                     employeeslist.push(childSnapshot.val());
