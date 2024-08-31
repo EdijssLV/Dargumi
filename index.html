@@ -7,7 +7,7 @@
     <link rel="icon" type="image/x-icon" href="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZTBnM2w1OTFtMXZ2eXRycHg1a2Z5cmE1cXh2YnpjMnA4aHhmNGQ4eCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/h4BlS07oNxagGaKPG9/giphy.gif">
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <script src="script.js" defer></script>
+    <script src="script.js"></script>
 </head>
 <body background="http://st.depositphotos.com/1987851/1904/i/450/depositphotos_19041043-Old-wallpaper-seamless-texture.jpg">
     <h1>Kabinets</h1>
@@ -19,58 +19,85 @@
     <div class="table-container">
         <table>
             <thead>
-                <tr>
-                    <th>Nosaukums</th>
-                    <th>Tilpums</th>
-                    <th>Cena</th>
-                    <th>Veikals</th>
-                    <th>Kategorija</th>
-                    <th>€/L</th>
-                </tr>
+                <th>Dzēriens</th>
+                <th>Tilpums</th>
+                <th>Cena</th>
+                <th>Cena/L</th>
+                <th>Veikals</th>
             </thead>
-            <tbody>
-                <tr>
-                    <td>Oakheart</td>
-                    <td>1</td>
-                    <td>15.49</td>
-                    <td>Dzēriens bez uzcenojuma</td>
-                    <td>Rums</td>
-                    <td>15.49</td>
-                </tr>
-                <tr>
-                    <td>Oakheart</td>
-                    <td>1</td>
-                    <td>15.99</td>
-                    <td>AlkOutlet</td>
-                    <td>Rums</td>
-                    <td>15.99</td>
-                </tr>
-                <tr>
-                    <td>Oakheart</td>
-                    <td>1</td>
-                    <td>16.69</td>
-                    <td>Depo</td>
-                    <td>Rums</td>
-                    <td>16.69</td>
-                </tr>
-                <tr>
-                    <td>Oakheart</td>
-                    <td>1</td>
-                    <td>17.99</td>
-                    <td>Mego</td>
-                    <td>Rums</td>
-                    <td>17.99</td>
-                </tr>
-                <tr>
-                    <td>Oakheart</td>
-                    <td>1</td>
-                    <td>25.49</td>
-                    <td>Rimi</td>
-                    <td>Rums</td>
-                    <td>25.49</td>
-                </tr>
+            <tbody id="tbody1">
+
             </tbody>
         </table>
     </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-analytics.js";
+
+        const firebaseConfig = {
+          apiKey: "AIzaSyCEghVLUfzF6NaLO3Igq6EBzkPw8JBX1M4",
+          authDomain: "kabinets-b2a35.firebaseapp.com",
+          databaseURL: "https://kabinets-b2a35-default-rtdb.europe-west1.firebasedatabase.app",
+          projectId: "kabinets-b2a35",
+          storageBucket: "kabinets-b2a35.appspot.com",
+          messagingSenderId: "335798014944",
+          appId: "1:335798014944:web:3de32c6db6d77b4c619185",
+          measurementId: "G-7RPWBFX3FE"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+        
+        import {getDatabase, ref, child, onValue, get, set, update, remove} from "https://www.gstatic.com/firebasejs/10.12.3/firebase-database.js";
+      
+        const db = getDatabase();
+
+        let employeelist = [];
+        let sno = 0;
+        let tbody = document.getElementById("tbody1");
+
+        const SelectAllDataOnce = () => {
+            const dbref = ref(db);
+            get(child(dbref, "1/data")).then((snapshot) =>{
+                employeelist = [];
+                snapshot.forEach(childSnapshot =>{
+                    employeeslist.push(childSnapshot.val());
+                });
+                AddAllRecords();
+            })
+        }
+
+        const AddSingleRecord = (Name, Volume, Price, PricePerLiter, Store ) =>{
+            let trow = document.createElement("tr");
+            let td1 = document.createElement("td");
+            let td2 = document.createElement("td");
+            let td3 = document.createElement("td");
+            let td4 = document.createElement("td");
+            let td5 = document.createElement("td");
+
+            td1.innerHTML = Name;
+            td2.innerHTML = Volume;
+            td3.innerHTML = Price;
+            td4.innerHTML = PricePerLiter;
+            td5.innerHTML = Store;
+
+            trow.append(td1,td2,td3,td4,td5);
+            tbody.append(trow);
+
+        }
+
+        const AddAllRecords = () => {
+            sno=0;
+            tbody.innerHTML = "";
+            employeeslist.forEach(employee => {
+                AddSingleRecord(employee.Name, employee.Volume, employee.Price, employee.PricePerLiter, employee.Store);
+
+            })
+        }
+
+        window.addEventListener("load", SelectAllDataOnce);
+      </script>
+
 </body>
 </html>

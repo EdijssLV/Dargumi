@@ -41,16 +41,12 @@ th {
     right: 10px;
     padding: 10px 20px;
     background-color: #ffffff;
-    color: rgb(0, 0, 0);
+    color: #000000;
     border: none;
     border-radius: 5px;
     font-size: 16px;
     cursor: pointer;
     z-index: 1000;
-}
-
-.top-right-button:hover {
-    background-color: #7e7e7e;
 }
 /* filter */
 .hidden-div {
@@ -59,8 +55,8 @@ th {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: #fff;
+    background-color: #ffffff;
     padding: 20px;
-    border: 1px solid #111;
+    border: 1px solid #111111;
     z-index: 9;
 }
